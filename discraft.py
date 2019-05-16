@@ -3,32 +3,20 @@ import time
 import re
 import discord
 import sys
-
-import threading
-
-chat_output = re.compile("(\[\d\d:\d\d:\d\d\]).*: (\<.*\> .*)")
-command_pattern = re.compile("!mine (.*)")
-
-
-p = pexpect.spawn('java -Xmx2400M -Xms1024M -jar server.jar nogui')
-p.setecho(False)
-
-def echoback(stringin):
-    p.sendline(stringin)
-    echoback = p.readline()
-    return echoback.decode();
+import asyncio
 
 TOKEN = sys.argv[1]
+CHANNEL_ID = sys.argv[2]
 
-print("BEFORE CLIENT")
+command_pattern = re.compile("!mine (.*)")
+
+p = pexpect.spawn('java -Xmx2400M -Xms1024M -jar server.jar nogui', timeout=1)
+p.setecho(False)
 
 client = discord.Client()
 
-print("AFTER CLIENT")
-
 @client.event
 async def on_message(message):
-    print("Received message")
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
@@ -48,18 +36,34 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-def listen_to_server():
+msg_info = re.compile(".*: (.*)")
+
+with open('./discord_msgs.txt') as f:
+    discord_msgs = f.readlines()
+
+relay_patterns = []
+
+for reg in [x.strip() for x in discord_msgs]:
+    relay_patterns.append(re.compile(reg))
+
+async def listen_to_server():
+    await client.wait_until_ready()
+    channel = discord.Object(id=CHANNEL_ID)
     while (True):
-        out = p.readline().decode("utf-8")
-        match_result = chat_output.match(out)
-        if match_result:
-            print(match_result.groups()[1])
-        else:
-            print("print %s" % out)
-        time.sleep (0.05)
+        try:
+            line = p.readline()
+            out = line.decode("utf-8")
+            print(out, end='')
+            for pattern in relay_patterns:
+                result = pattern.match(out)
+                if result:
+                    await client.send_message(channel, msg_info.match(out).groups()[0])
+                    break
+        except pexpect.exceptions.TIMEOUT:
+            pass
+        except Exception as e:
+            print("This is an error message! %s" % str(e))
+        await asyncio.sleep(0.05)
 
-
-thr = threading.Thread(target=listen_to_server, args=(), kwargs={})
-thr.start()
-
+client.loop.create_task(listen_to_server())
 client.run(TOKEN)

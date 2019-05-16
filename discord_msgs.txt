@@ -1,0 +1,7 @@
+.*: \<.*\> .*
+.*: .* joined the game
+.*: .* jleft the game
+.*: .* was shot by Skeleton
+.*: .* fell from a high place 
+.*: .* was slain by Zombie
+.*: .* drowned
