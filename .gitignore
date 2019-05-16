@@ -102,3 +102,18 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+#minecraft
+
+banned-ips.json
+ops.json
+server.properties
+usercache.json
+world/*
+banned-players.json
+eula.txt
+logs/*
+server.jar
+setup.sh
+whitelist.json
