@@ -1,7 +1,38 @@
 .*: \<.*\> .*
 .*: .* joined the game
-.*: .* jleft the game
-.*: .* was shot by Skeleton
-.*: .* fell from a high place 
-.*: .* was slain by Zombie
-.*: .* drowned
+.*: .* left the game
+.*: .* blew up
+.*: .* burned to death
+.*: .* didn't want to live in the same world as .*
+.*: .* died.*
+.*: .* discovered the floor was lava
+.*: .* drowned.*
+.*: .* experienced kinetic energy.*
+.*: .* fell.*
+.*: .* got finished off by.*
+.*: .* hit the ground too hard .*
+.*: .* removed an elytra while flying whilst trying to escape .*
+.*: .* starved to death
+.*: .* suffocated in a wall.*
+.*: .* tried to swim in lava.*
+.*: .* walked into.*
+.*: .* was blown.*
+.*: .* was burnt to a crisp whilst fighting .*
+.*: .* was doomed to.*
+.*: .* was fireballed by .*
+.*: .* was impaled by .*
+.*: .* was killed.*
+.*: .* was poked.*
+.*: .* was pricked to death
+.*: .* was pummeled by .*
+.*: .* was roasted in dragon breath.*
+.*: .* was shot.*
+.*: .* was slain by.*
+.*: .* was speared by .*
+.*: .* was squashed.*
+.*: .* was squished.*
+.*: .* was stabbed.*
+.*: .* was struck.*
+.*: .* went off.*
+.*: .* went up.*
+.*: .* withered.*
