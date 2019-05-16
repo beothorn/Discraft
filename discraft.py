@@ -4,6 +4,8 @@ import re
 import discord
 import sys
 
+import threading
+
 chat_output = re.compile("(\[\d\d:\d\d:\d\d\]).*: (\<.*\> .*)")
 command_pattern = re.compile("!mine (.*)")
 
@@ -33,9 +35,11 @@ async def on_message(message):
 
     if message.content.startswith('!mine'):
         command = command_pattern.match(message.content)[1]
-        print(command)
         p.sendline(command)
         await client.send_message(message.channel, "command executed on minecraft")
+        return
+    p.sendline("say %s :%s" % (message.author, message.content))
+
 
 @client.event
 async def on_ready():
@@ -44,10 +48,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-
-import threading
-
-def foo():
+def listen_to_server():
     while (True):
         out = p.readline().decode("utf-8")
         match_result = chat_output.match(out)
@@ -58,9 +59,7 @@ def foo():
         time.sleep (0.05)
 
 
-thr = threading.Thread(target=foo, args=(), kwargs={})
-thr.start() # Will run "foo"
-#thr.is_alive() # Will return whether foo is running currently
-#thr.join() # Will wait till "foo" is done
+thr = threading.Thread(target=listen_to_server, args=(), kwargs={})
+thr.start()
 
 client.run(TOKEN)
