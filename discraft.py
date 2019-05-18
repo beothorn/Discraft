@@ -78,7 +78,7 @@ async def on_message(message):
         return
 
     content = message.content
-    author = message.author
+    author_name = message.author.display_name
 
     mcserver = "mcserver"
     discraft = "discraft"
@@ -139,7 +139,7 @@ async def on_message(message):
                 p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
                 await client.send_message(channel, "Starting new server, may take some minutes to boot")
 
-    p.sendline("say %s :%s" % (author, content))
+    p.sendline("say %s :%s" % (author_name, content))
 
 @client.event
 async def on_ready():
