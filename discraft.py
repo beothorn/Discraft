@@ -42,16 +42,18 @@ async def listen_to_server():
     await client.wait_until_ready()
     channel = discord.Object(id=CHANNEL_ID)
     msg_info = re.compile(".*: (.*)")
+    server_msg = re.compile(".*\[Server\].*")
     while (True):
         try:
             line = p.readline()
             out = line.decode("utf-8")
             print(out, end='')
-            for pattern in relay_patterns:
-                result = pattern.match(out)
-                if result:
-                    await client.send_message(channel, msg_info.match(out).groups()[0])
-                    break
+            if not server_msg.match(out):
+                for pattern in relay_patterns:
+                    result = pattern.match(out)
+                    if result:
+                        await client.send_message(channel, msg_info.match(out).groups()[0])
+                        break
         except pexpect.exceptions.TIMEOUT:
             pass
         except Exception as e:
