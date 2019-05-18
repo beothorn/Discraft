@@ -62,6 +62,7 @@ command_pattern = re.compile("!([^\s]*) ([^\s]*)$")
 @client.event
 async def on_message(message):
     global CHANNEL_ID
+    global p
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
@@ -95,6 +96,12 @@ async def on_message(message):
                 result = subprocess.run(["top","-b","-n","1"], stdout=subprocess.PIPE)
                 output = "\n".join(result.stdout.decode('utf-8').split('\n')[0:10])
                 await client.send_message(channel, "top:\n %s" % output)
+                return
+            if command == "restart":
+                await client.send_message(channel, "Restarting")
+                p.close()
+                p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
+                await client.send_message(channel, "Restarted, it may take some time for the server to boot")
                 return
 
     command_w_args = command_args_pattern.match(content)

@@ -26,6 +26,10 @@ Moves the bot to another channel
 
 Example: !discraft set-channel 55555555
 
+!discraft restart
+
+Restarts minecraft server
+
 !discraft top
 
 Gets cpu and memory usage
