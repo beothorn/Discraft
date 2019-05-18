@@ -5,6 +5,7 @@ import discord
 import sys
 import asyncio
 import requests
+import subprocess
 
 if len(sys.argv) < 3:
     print("Usage: python3 discraft.py BOT-TOKEN CHANNEL-ID MINECRAFT-JAVA-COMMAND")
@@ -89,6 +90,11 @@ async def on_message(message):
             if command == "ip":
                 result = requests.get("https://www.canihazip.com/s")
                 await client.send_message(channel, result.text)
+                return
+            if command == "top":
+                result = subprocess.run(["top","-b","-n","1"], stdout=subprocess.PIPE)
+                output = "\n".join(result.stdout.decode('utf-8').split('\n')[0:10])
+                await client.send_message(channel, "top:\n %s" % output)
                 return
 
     command_w_args = command_args_pattern.match(content)
