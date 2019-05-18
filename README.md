@@ -5,7 +5,5 @@ Run commands from discord using !mine command
 
 Put discraft.py and discord_msgs.txt in the same folder as the server.
 
-Usage:
-
-python3 DISCORD-BOT-TOKEN CHANNEL-ID
-
+Example:
+python3 discraft.py XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXX 55555555555 "/usr/bin/java -Xmx2400M -Xms1024M -jar server.jar nogui"
