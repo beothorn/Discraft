@@ -117,6 +117,16 @@ async def on_message(message):
         if type == mcserver:
             command_args_concat = "%s %s" % (command, args)
             p.sendline(command_args_concat)
+            try:
+                line = p.readline()
+                out = line.decode("utf-8")
+                print(out, end='')
+                await client.send_message(channel, out)
+            except pexpect.exceptions.TIMEOUT:
+                pass
+            except Exception as e:
+                print("This is an error message! %s" % str(e))
+
             await client.send_message(channel, ("command '%s' executed on minecraft" % (command_args_concat)) )
             return
         if type == discraft:
