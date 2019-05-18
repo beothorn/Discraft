@@ -4,6 +4,8 @@ import re
 import discord
 import sys
 import asyncio
+import shutil
+import os
 import requests
 import subprocess
 
@@ -122,6 +124,18 @@ async def on_message(message):
                 new_channel = discord.Object(id=args)
                 await client.send_message(new_channel, "Hey, someone told me to use this channel :)")
                 return
+            if command == "update":
+                await client.send_message(channel, "Updating to %s, please wait" % args)
+                new_server_req = requests.get(args, allow_redirects=True)
+                try:
+                    os.remove("server.jar.old")
+                except OSError:
+                    pass
+                p.close()
+                shutil.move("server.jar", "server.jar.old")
+                open('server.jar', 'wb').write(new_server_req.content)
+                p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
+                await client.send_message(channel, "Starting new server, may take some minutes to boot")
 
     p.sendline("say %s :%s" % (author, content))
 

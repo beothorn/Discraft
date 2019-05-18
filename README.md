@@ -30,6 +30,10 @@ Example: !discraft set-channel 55555555
 
 Restarts minecraft server
 
+!discraft update urlToNewServer.jar
+
+Replaces server.jar with the result from the url
+
 !discraft top
 
 Gets cpu and memory usage
