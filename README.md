@@ -34,6 +34,10 @@ Restarts minecraft server
 
 Replaces server.jar with the result from the url
 
+!discraft set-command new command
+
+Example: !discraft set-command /usr/bin/java -Xmx4G -Xms1024M -jar server.jar nogu
+
 !discraft top
 
 Gets cpu and memory usage

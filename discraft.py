@@ -67,6 +67,7 @@ command_pattern = re.compile("!([^\s]*) ([^\s]*)$")
 async def on_message(message):
     global CHANNEL_ID
     global p
+    global MINECRAFT_SERVER_CMD
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
@@ -148,7 +149,12 @@ async def on_message(message):
                 open('server.jar', 'wb').write(new_server_req.content)
                 p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
                 await client.send_message(channel, "Starting new server, may take some minutes to boot")
-
+                return
+            if command == "set-command":
+                await client.send_message(channel, "Command for starting server was %s" % MINECRAFT_SERVER_CMD)
+                MINECRAFT_SERVER_CMD = args
+                await client.send_message(channel, "Command for next server restart will be %s" % MINECRAFT_SERVER_CMD)
+                return
     p.sendline("say %s :%s" % (author_name, content))
 
 @client.event
