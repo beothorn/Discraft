@@ -6,6 +6,7 @@
 .* has completed the challenge.*
 .* has made the advancement.*
 .*This crash report has been saved to.*
+.*The exception was:.*
 .*Exception stopping the server.*
 .*: .* blew up
 .*: .* burned to death
