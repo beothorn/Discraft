@@ -43,11 +43,18 @@ async def listen_to_server():
     channel = discord.Object(id=CHANNEL_ID)
     msg_info = re.compile(".*: (.*)")
     server_msg = re.compile(".*\[Server\].*")
+    server_up_msg = re.compile(".*Time elapsed: (.*)")
+
     while (True):
         try:
             line = p.readline()
             out = line.decode("utf-8")
             print(out, end='')
+            if out == "":
+                break
+            server_up = re.match(server_up_msg)
+            if server_up:
+                await client.send_message(channel, ("Server is up, took %s" % server_up[1]))
             if not server_msg.match(out):
                 for pattern in relay_patterns:
                     result = pattern.match(out)
