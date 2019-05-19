@@ -118,6 +118,9 @@ async def on_message(message):
                 p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
                 await client.send_message(channel, "Restarted, it may take some time for the server to boot")
                 return
+        with open('./README.md', 'r') as file:
+            await client.send_message(channel, file.read())
+            return
 
     command_w_args = command_args_pattern.match(content)
     if command_w_args:
@@ -165,6 +168,9 @@ async def on_message(message):
                 MINECRAFT_SERVER_CMD = args
                 await client.send_message(channel, "Command for next server restart will be %s" % MINECRAFT_SERVER_CMD)
                 return
+        with open('./README.md', 'r') as file:
+            await client.send_message(channel, file.read())
+            return
     p.sendline("say %s :%s" % (author_name, content))
 
 @client.event
