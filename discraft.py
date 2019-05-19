@@ -121,7 +121,7 @@ async def on_message(message):
                 return
             if command == "restart":
                 await client.send_message(channel, "Restarting")
-                p.close()
+                p.close(force=True)
                 p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
                 await client.send_message(channel, "Restarted, it may take some time for the server to boot")
                 return
