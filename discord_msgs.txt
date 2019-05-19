@@ -6,6 +6,7 @@
 .* has completed the challenge.*
 .* has made the advancement.*
 .*This crash report has been saved to.*
+.*Exception stopping the server.*
 .*: .* blew up
 .*: .* burned to death
 .*: .* didn't want to live in the same world as .*
