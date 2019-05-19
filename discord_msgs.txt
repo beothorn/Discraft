@@ -3,6 +3,7 @@
 .*: .* left the game
 .* has completed the challenge.*
 .* has made the advancement.*
+.*This crash report has been saved to.*
 .*: .* blew up
 .*: .* burned to death
 .*: .* didn't want to live in the same world as .*
