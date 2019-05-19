@@ -1,3 +1,5 @@
+.*Starting minecraft server version.*
+.*Default game type:.*
 .*: \<.*\> .*
 .*: .* joined the game
 .*: .* left the game
