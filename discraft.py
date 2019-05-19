@@ -52,7 +52,7 @@ async def listen_to_server():
             print(out, end='')
             if out == "":
                 break
-            server_up = re.match(server_up_msg)
+            server_up = server_up_msg.match(out)
             if server_up:
                 await client.send_message(channel, ("Server is up, took %s" % server_up[1]))
             if not server_msg.match(out):
