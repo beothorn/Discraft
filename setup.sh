@@ -7,3 +7,4 @@ sudo apt install openjdk-11-jre-headless
 wget https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
 java -jar server.jar
 sed -i "s/false/true/" eula.txt
+sed -i "s/level-seed=/level-seed=-1881547168/" server.properties
