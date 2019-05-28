@@ -164,7 +164,7 @@ async def on_message(message):
                     os.remove("server.jar.old")
                 except OSError:
                     pass
-                p.close()
+                p.close(force=True)
                 shutil.move("server.jar", "server.jar.old")
                 open('server.jar', 'wb').write(new_server_req.content)
                 p = pexpect.spawn(MINECRAFT_SERVER_CMD, timeout=1)
