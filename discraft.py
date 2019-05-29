@@ -139,8 +139,12 @@ async def on_message(message):
             command_args_concat = "%s %s" % (command, args)
             p.sendline(command_args_concat)
             try:
-                line = p.readline()
-                out = line.decode("utf-8")
+                out = ""
+                tries = 0
+                while out == "" and tries < 1000:
+                    line = p.readline()
+                    out = line.decode("utf-8")
+                    tries = tries + 1
                 print(out, end='')
                 await client.send_message(channel, out)
             except pexpect.exceptions.TIMEOUT:
